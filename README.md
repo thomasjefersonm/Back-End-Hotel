@@ -162,4 +162,4 @@ Status de Sucesso: 204 No Content
 Status de Erro: 404 Not Found (Caso a reserva não exista)
 ```
 
-*Documentação oficial desenvolvida em conformidade com as diretrizes descritas no trabalho da Atividade Baseada em Problemas (ABP) - Professor Juliano Almeida - SATC, 2026.*
+*Documentação oficial desenvolvida em conformidade com as diretrizes descritas no trabalho da Atividade Baseada em Problemas (ABP) - Professor Juliano Almeida - UNISATC, 2026.*
