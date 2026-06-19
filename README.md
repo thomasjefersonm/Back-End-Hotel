@@ -99,6 +99,56 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 
 ### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
 *Endpoints a serem mapeados e implementados pelo Integrante 3 (Ex: `POST /api/reservas`, validação de datas e tratamento global de exceções com `@ControllerAdvice`).*
+Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
 
+Listar todas as reservas
+Rota: GET /reservas
+
+Descrição: Retorna a lista de reservas cadastradas, com suporte a paginação e ordenação automática por data de check-in.
+
+Status de Sucesso: 200 OK
+
+Criar uma nova reserva
+Rota: POST /reservas
+
+Descrição: Registra uma nova reserva. O sistema valida automaticamente se o quarto já está ocupado no período solicitado, impedindo conflitos de datas (overbooking).
+
+Corpo da Requisição (JSON):
+
+JSON
+{
+  "hospedeId": 1,
+  "quartoId": 5,
+  "dataCheckin": "2026-07-01",
+  "dataCheckout": "2026-07-05"
+}
+Status de Sucesso: 201 Created
+
+Status de Erro: 400 Bad Request (Caso o quarto esteja ocupado ou os dados estejam inválidos)
+
+Atualizar reserva
+Rota: PUT /reservas/{id}
+
+Descrição: Altera as datas de uma reserva existente, revalidando a disponibilidade do quarto.
+
+Corpo da Requisição (JSON):
+
+JSON
+{
+  "dataCheckin": "2026-07-02",
+  "dataCheckout": "2026-07-06"
+}
+Status de Sucesso: 200 OK
+
+Status de Erro: 400 Bad Request ou 404 Not Found
+
+Remover reserva
+Rota: DELETE /reservas/{id}
+
+Descrição: Cancela e remove uma reserva do sistema.
+
+Status de Sucesso: 204 No Content
+
+Status de Erro: 404 Not Found (Caso a reserva não exista)
 ---
 *Documentação oficial desenvolvida em conformidade com as diretrizes descritas no trabalho da Atividade Baseada em Problemas (ABP) - Professor Juliano Almeida - SATC, 2026.*
