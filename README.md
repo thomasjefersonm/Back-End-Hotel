@@ -102,6 +102,16 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
 
+
+### 🗺️ Documentação das Rotas da API (Endpoints)
+
+| Método | Endpoint | Descrição |
+| :--- | :--- | :--- |
+| **GET** | `/api/reservas` | Lista todas as reservas com paginação |
+| **POST** | `/api/reservas` | Cria uma nova reserva com validação de overbooking |
+| **PUT** | `/api/reservas/{id}` | Atualiza os dados de uma reserva existente |
+| **DELETE** | `/api/reservas/{id}` | Remove permanentemente uma reserva |
+
 Listar todas as reservas
 Rota: GET /reservas
 
@@ -116,7 +126,7 @@ Descrição: Registra uma nova reserva. O sistema valida automaticamente se o qu
 
 Corpo da Requisição (JSON):
 
-JSON
+ ```JSON
 
 {
   "hospedeId": 1,
@@ -136,7 +146,7 @@ Descrição: Altera as datas de uma reserva existente, revalidando a disponibili
 
 Corpo da Requisição (JSON):
 
-JSON
+ ```JSON
 
 {
   "dataCheckin": "2026-07-02",
