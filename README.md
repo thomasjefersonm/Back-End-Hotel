@@ -98,10 +98,7 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 *Endpoints a serem mapeados e implementados pelo Integrante 2 (Ex: `GET /api/quartos`, `POST /api/quartos`, paginação e filtros).*
 
 ### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
-*Endpoints a serem mapeados e implementados pelo Integrante 3 (Ex: `POST /api/reservas`, validação de datas e tratamento global de exceções com `@ControllerAdvice`).*
-
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
-
 
 ### 🗺️ Documentação das Rotas da API (Endpoints)
 
