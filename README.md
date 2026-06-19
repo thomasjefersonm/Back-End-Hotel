@@ -99,6 +99,7 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 
 ### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
 *Endpoints a serem mapeados e implementados pelo Integrante 3 (Ex: `POST /api/reservas`, validação de datas e tratamento global de exceções com `@ControllerAdvice`).*
+
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
 
 Listar todas as reservas
@@ -116,12 +117,14 @@ Descrição: Registra uma nova reserva. O sistema valida automaticamente se o qu
 Corpo da Requisição (JSON):
 
 JSON
+
 {
   "hospedeId": 1,
   "quartoId": 5,
   "dataCheckin": "2026-07-01",
   "dataCheckout": "2026-07-05"
 }
+
 Status de Sucesso: 201 Created
 
 Status de Erro: 400 Bad Request (Caso o quarto esteja ocupado ou os dados estejam inválidos)
@@ -134,10 +137,12 @@ Descrição: Altera as datas de uma reserva existente, revalidando a disponibili
 Corpo da Requisição (JSON):
 
 JSON
+
 {
   "dataCheckin": "2026-07-02",
   "dataCheckout": "2026-07-06"
 }
+
 Status de Sucesso: 200 OK
 
 Status de Erro: 400 Bad Request ou 404 Not Found
