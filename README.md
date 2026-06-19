@@ -143,8 +143,6 @@ Descrição: Altera as datas de uma reserva existente, revalidando a disponibili
 
 Corpo da Requisição (JSON):
 
- ```JSON
-
 {
   "dataCheckin": "2026-07-02",
   "dataCheckout": "2026-07-06"
@@ -162,5 +160,6 @@ Descrição: Cancela e remove uma reserva do sistema.
 Status de Sucesso: 204 No Content
 
 Status de Erro: 404 Not Found (Caso a reserva não exista)
----
+```
+
 *Documentação oficial desenvolvida em conformidade com as diretrizes descritas no trabalho da Atividade Baseada em Problemas (ABP) - Professor Juliano Almeida - SATC, 2026.*
