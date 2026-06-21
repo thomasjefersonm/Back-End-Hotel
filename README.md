@@ -49,7 +49,10 @@ igualitária por entidade entre os 3 membros da equipe:
 
 ## 🗺️ Documentação das Rotas da API (Endpoints)
 
-### 👤 Módulo de Hóspedes (Desenvolvido pelo Integrante 1)
+### 👤 Módulo de Hóspedes - Descanso Perfeito
+
+Desenvolvido pelo **Integrante 1** - Thomas Jeferson da Silva Maggi (thomasjefersonm)
+
 Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, aplicando conceitos fundamentais de Orientação a Objetos 
 (como encapsulamento rigoroso e herança a partir de uma classe base).
 
@@ -96,7 +99,7 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 
 # 🛏️ Módulo de Quartos - Descanso Perfeito
 
-Desenvolvido pelo **Integrante 2** - Bruno Goulart (Baah151)
+Desenvolvido pelo **Integrante 2** - Bruno Ghisi da Silva (Baah151)
 
 ---
 
@@ -407,7 +410,10 @@ public class CorsConfig implements WebMvcConfigurer {
 
 ---
 
-### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
+### 📅 Módulo de Reservas - Descanso Perfeito
+
+Desenvolvido pelo **Integrante 3** - Karine de Abraham Louis (karine285)
+
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
 
 ### 🗺️ Documentação das Rotas da API (Endpoints)
