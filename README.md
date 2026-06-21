@@ -407,16 +407,6 @@ public class CorsConfig implements WebMvcConfigurer {
 
 ---
 
-## 👨‍💻 Desenvolvedor
-
-**Bruno Goulart (Baah151)**  
-Email: brughisidasilva@gmail.com  
-GitHub: [@thomasjefersonm](https://github.com/thomasjefersonm)
-
----
-
-**✨ Implementação concluída em 20 de Junho de 2026**
-
 ### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
 
