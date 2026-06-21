@@ -94,8 +94,328 @@ Este módulo gerencia todo o ciclo de vida dos clientes na rede de hotéis, apli
 
 ---
 
-### 🛏️ Módulo de Quartos (Desenvolvido pelo Integrante 2)
-*Endpoints a serem mapeados e implementados pelo Integrante 2 (Ex: `GET /api/quartos`, `POST /api/quartos`, paginação e filtros).*
+# 🛏️ Módulo de Quartos - Descanso Perfeito
+
+Desenvolvido pelo **Integrante 2** - Bruno Goulart (Baah151)
+
+---
+
+## 📋 Descrição
+
+Este módulo é responsável pelo gerenciamento completo da entidade **Quarto** no sistema de reserva de hotéis "Descanso Perfeito". Implementa todas as operações CRUD (Create, Read, Update, Delete), além de filtros avançados, paginação e ordenação para buscas inteligentes de quartos disponíveis.
+
+---
+
+## 🎯 Funcionalidades Implementadas
+
+✅ **CRUD Completo** - Criar, ler, atualizar e deletar quartos  
+✅ **Filtros Avançados** - Buscar por categoria, disponibilidade e combinações  
+✅ **Paginação** - Suporte a requisições paginadas com tamanho customizável  
+✅ **Ordenação** - Ordenar resultados por qualquer atributo (ascendente/descendente)  
+✅ **CORS Configurado** - Permite requisições de qualquer origem  
+✅ **API RESTful** - 10 endpoints implementados e testados  
+✅ **Persistência em Banco de Dados** - H2 em memória com Hibernate  
+
+---
+
+## 📁 Arquivos Desenvolvidos
+
+```
+src/main/java/com/example/descansoperfeito/
+├── model/
+│   └── Quarto.java                      # Entidade com atributos e categorias
+├── repository/
+│   └── QuartoRepository.java             # Interface JpaRepository com queries customizadas
+├── service/
+│   └── QuartoService.java                # Lógica de negócio CRUD e filtros
+├── controller/
+│   └── QuartoController.java             # 10 Endpoints REST
+└── config/
+    └── CorsConfig.java                  # Configuração CORS global
+```
+
+---
+
+## 📝 Entidade Quarto
+
+### Modelo de Dados
+
+```java
+@Entity
+@Table(name = "quarto")
+public class Quarto extends EntidadeBase {
+    
+    @Column(nullable = false)
+    private Integer numero;                    // Número identificador
+    
+    @Enumerated(EnumType.STRING)
+    private CategoriaQuarto categoria;         // Tipo do quarto
+    
+    @Column(nullable = false)
+    private Double preco;                      // Valor da diária
+    
+    @Column(nullable = false)
+    private Boolean disponibilidade;           // Status de disponibilidade
+    
+    public enum CategoriaQuarto {
+        SIMPLES,          // Quarto básico com cama simples
+        DUPLO,            // Quarto com cama de casal
+        SUITE,            // Quarto de luxo com área de estar
+        PRESIDENCIAL      // Quarto premium com todas as comodidades
+    }
+}
+```
+
+---
+
+## 🛣️ Endpoints da API
+
+### Base URL: `http://localhost:8080/api/quartos`
+
+| Método | Endpoint | Descrição | Status |
+|--------|----------|-----------|--------|
+| **GET** | `/` | Listar todos os quartos | 200 |
+| **GET** | `/{id}` | Buscar quarto por ID | 200 |
+| **GET** | `/numero/{numero}` | Buscar quarto por número | 200 |
+| **POST** | `/` | Criar novo quarto | 201 |
+| **PUT** | `/{id}` | Atualizar quarto existente | 200 |
+| **DELETE** | `/{id}` | Deletar quarto | 204 |
+| **GET** | `/filtrados/buscar` | ⭐ Filtro avançado (categoria, disponibilidade) | 200 |
+| **GET** | `/disponiveis` | Listar quartos disponíveis (paginado) | 200 |
+| **GET** | `/categoria/{categoria}` | Filtrar por categoria (paginado) | 200 |
+| **GET** | `/estatisticas` | Retornar contagem de quartos | 200 |
+
+---
+
+## 📚 Exemplos de Requisições
+
+### 1️⃣ Criar um Quarto (POST)
+
+**Requisição:**
+```bash
+curl -X POST http://localhost:8080/api/quartos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "numero": 101,
+    "categoria": "DUPLO",
+    "preco": 150.00,
+    "disponibilidade": true
+  }'
+```
+
+**Resposta (201 Created):**
+```json
+{
+  "id": 1,
+  "numero": 101,
+  "categoria": "DUPLO",
+  "preco": 150.0,
+  "disponibilidade": true
+}
+```
+
+---
+
+### 2️⃣ Listar Todos os Quartos (GET)
+
+**Requisição:**
+```bash
+curl http://localhost:8080/api/quartos
+```
+
+**Resposta (200 OK):**
+```json
+[
+  {
+    "id": 1,
+    "numero": 101,
+    "categoria": "DUPLO",
+    "preco": 150.0,
+    "disponibilidade": true
+  },
+  {
+    "id": 2,
+    "numero": 102,
+    "categoria": "SUITE",
+    "preco": 250.0,
+    "disponibilidade": false
+  }
+]
+```
+
+---
+
+### 3️⃣ Filtro Avançado com Paginação e Ordenação (GET)
+
+**Requisição:**
+```bash
+curl "http://localhost:8080/api/quartos/filtrados/buscar?categoria=DUPLO&disponibilidade=true&page=0&size=10&sort=preco,asc"
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "conteudo": [
+    {
+      "id": 1,
+      "numero": 101,
+      "categoria": "DUPLO",
+      "preco": 150.0,
+      "disponibilidade": true
+    }
+  ],
+  "paginaAtual": 0,
+  "totalElementos": 1,
+  "totalPaginas": 1,
+  "ehUltimaPagina": true,
+  "totalPorPagina": 10,
+  "ehPrimeiraPagina": true
+}
+```
+
+---
+
+### 4️⃣ Buscar Quartos por Categoria (GET)
+
+**Requisição:**
+```bash
+curl "http://localhost:8080/api/quartos/categoria/DUPLO?page=0&size=5"
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "conteudo": [
+    {
+      "id": 1,
+      "numero": 101,
+      "categoria": "DUPLO",
+      "preco": 150.0,
+      "disponibilidade": true
+    }
+  ],
+  "paginaAtual": 0,
+  "totalElementos": 1,
+  "categoria": "Duplo",
+  "totalPaginas": 1,
+  "totalPorPagina": 5
+}
+```
+
+---
+
+### 5️⃣ Atualizar um Quarto (PUT)
+
+**Requisição:**
+```bash
+curl -X PUT http://localhost:8080/api/quartos/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "numero": 101,
+    "categoria": "SUITE",
+    "preco": 250.00,
+    "disponibilidade": false
+  }'
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "id": 1,
+  "numero": 101,
+  "categoria": "SUITE",
+  "preco": 250.0,
+  "disponibilidade": false
+}
+```
+
+---
+
+### 6️⃣ Deletar um Quarto (DELETE)
+
+**Requisição:**
+```bash
+curl -X DELETE http://localhost:8080/api/quartos/1
+```
+
+**Resposta:** `204 No Content`
+
+---
+
+## 🔧 Parâmetros de Paginação
+
+| Parâmetro | Tipo | Descrição | Exemplo |
+|-----------|------|-----------|---------|
+| `page` | Integer | Número da página (começa em 0) | `?page=0` |
+| `size` | Integer | Registros por página | `?size=10` |
+| `sort` | String | Campo e direção (asc/desc) | `?sort=preco,asc` |
+
+---
+
+## ⚙️ Configuração CORS
+
+A configuração CORS permite requisições de qualquer origem:
+
+```java
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+            .allowedOrigins("*")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            .allowedHeaders("*")
+            .maxAge(3600);
+    }
+}
+```
+
+---
+
+## 🧪 Testes Realizados
+
+✅ **POST** - Criar quarto (HTTP 201)  
+✅ **GET All** - Listar todos (HTTP 200)  
+✅ **GET by ID** - Buscar específico (HTTP 200)  
+✅ **GET by Category** - Filtro por categoria (HTTP 200)  
+✅ **GET Advanced Filter** - Filtro + paginação + ordenação (HTTP 200)  
+✅ **PUT** - Atualizar (HTTP 200)  
+✅ **DELETE** - Deletar (HTTP 204)  
+
+---
+
+## 💡 Tecnologias Utilizadas
+
+| Tecnologia | Versão | Uso |
+|------------|--------|-----|
+| **Spring Boot** | 4.0.6 | Framework web |
+| **Spring Data JPA** | 4.0.5 | Persistência |
+| **Hibernate** | 7.2.12 | ORM |
+| **H2 Database** | 2.4.240 | Banco em memória |
+| **Java** | 25.0.3 | Linguagem |
+| **Gradle** | 9.5.1 | Build |
+
+---
+
+## 📌 Notas Importantes
+
+- O banco de dados H2 é executado **em memória**, portanto os dados são perdidos quando a aplicação é encerrada.
+- A paginação começa no índice **0** (primeira página).
+- Os filtros aceitam valores `null` para parâmetros opcionais (ex: `categoria=null`).
+- A ordenação suporta múltiplos campos (ex: `sort=categoria,asc&sort=preco,desc`).
+
+---
+
+## 👨‍💻 Desenvolvedor
+
+**Bruno Goulart (Baah151)**  
+Email: brughisidasilva@gmail.com  
+GitHub: [@thomasjefersonm](https://github.com/thomasjefersonm)
+
+---
+
+**✨ Implementação concluída em 20 de Junho de 2026**
 
 ### 📅 Módulo de Reservas (Desenvolvido pelo Integrante 3)
 Este módulo é o coração do sistema, responsável por gerenciar a estada dos hóspedes e garantir a integridade dos dados através de validações críticas contra overbooking.
